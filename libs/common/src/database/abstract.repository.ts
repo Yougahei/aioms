@@ -69,6 +69,10 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     });
   }
 
+  async find(filterQuery: FilterQuery<TDocument>) {
+    return this.model.find(filterQuery, {}, { lean: true });
+  }
+
   async startTransaction(): Promise<any> {
     const session = await this.connection.startSession();
     session.startTransaction();
